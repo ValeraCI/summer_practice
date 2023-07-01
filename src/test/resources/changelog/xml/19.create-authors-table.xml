@@ -1,0 +1,28 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="Valera Cidik" id="19.create-authors-table">
+        <createTable tableName="authors">
+            <column name="song_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="authors_song_id_FK" references="songs(id)"
+                             deleteCascade="true"/>
+            </column>
+            <column name="account_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="authors_account_id_FK" references="accounts(id)"
+                             deleteCascade="true"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey
+                columnNames="song_id, account_id"
+                constraintName="authors_PK"
+                tableName="authors"/>
+
+        <rollback>
+            <dropTable tableName="authors"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

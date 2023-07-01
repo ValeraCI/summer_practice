@@ -1,0 +1,26 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="Valera Cidik" id="07.create-login_details-table">
+        <createTable tableName="login_details">
+            <column name="account_id" type="bigint">
+                <constraints nullable="false" primaryKey="true"
+                             foreignKeyName="login_details_account_id_FK" references="accounts(id)"
+                             deleteCascade="true"/>
+            </column>
+            <column name="email" type="varchar(256)">
+                <constraints nullable="false" unique="true"/>
+            </column>
+            <column name="password" type="varchar(256)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="login_details"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

@@ -1,0 +1,22 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="Valera Cidik" id="28.create-locations-table.xml">
+        <createTable tableName="locations">
+            <column name="song_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="locations_song_id_FK" references="songs(id)"
+                             deleteCascade="true" primaryKey="true"/>
+            </column>
+
+            <column name="path" type="varchar">
+                <constraints nullable="false" unique="true"/>
+            </column>
+        </createTable>
+
+        <rollback>
+            <dropTable tableName="locations"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

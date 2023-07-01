@@ -1,0 +1,28 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="Valera Cidik" id="25.create-saved_albums-table.xml">
+        <createTable tableName="saved_albums">
+            <column name="account_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="saved_albums_account_id_FK" references="accounts(id)"
+                             deleteCascade="true"/>
+            </column>
+
+            <column name="album_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="saved_albums_album_id_FK" references="albums(id)"
+                             deleteCascade="true"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey
+                columnNames="account_id, album_id"
+                constraintName="saved_albums_PK"
+                tableName="saved_albums"/>
+
+        <rollback>
+            <dropTable tableName="saved_albums"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

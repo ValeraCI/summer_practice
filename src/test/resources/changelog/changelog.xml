@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <preConditions>
+        <or>
+            <dbms type="h2"/>
+            <dbms type="postgresql"/>
+        </or>
+    </preConditions>
+
+    <include file="xml/01.create-roles-table.xml" relativeToChangelogFile="true"/>
+    <include file="xml/02.create-roles-index.xml" relativeToChangelogFile="true"/>
+    <include file="xml/03.insert-roles.xml" relativeToChangelogFile="true"/>
+
+    <include file="xml/04.create-accounts-table.xml" relativeToChangelogFile="true"/>
+    <include file="xml/05.create-accounts-index.xml" relativeToChangelogFile="true"/>
+    <include file="xml/06.insert-accounts.xml" relativeToChangelogFile="true"/>
+
+    <include file="xml/07.create-login_details-table.xml" relativeToChangelogFile="true"/>
+    <include file="xml/08.create-login_details-index.xml" relativeToChangelogFile="true"/>
+    <include file="xml/09.insert-login_details.xml" relativeToChangelogFile="true"/>
+
+    <include file="xml/10.create-albums-table.xml" relativeToChangelogFile="true"/>
+    <include file="xml/11.create-albums-index.xml" relativeToChangelogFile="true"/>
+    <include file="xml/12.insert-albums.xml" relativeToChangelogFile="true"/>
+
+    <include file="xml/13.create-genres-table.xml" relativeToChangelogFile="true"/>
+    <include file="xml/14.create-genres-index.xml" relativeToChangelogFile="true"/>
+    <include file="xml/15.insert-genres.xml" relativeToChangelogFile="true"/>
+
+    <include file="xml/16.create-songs-table.xml" relativeToChangelogFile="true"/>
+    <include file="xml/17.create-songs-index.xml" relativeToChangelogFile="true"/>
+    <include file="xml/18.insert-songs.xml" relativeToChangelogFile="true"/>
+
+    <include file="xml/19.create-authors-table.xml" relativeToChangelogFile="true"/>
+    <include file="xml/20.create-authors-index.xml" relativeToChangelogFile="true"/>
+    <include file="xml/21.insert-authors.xml" relativeToChangelogFile="true"/>
+
+    <include file="xml/22.create-songs_in_albums-table.xml" relativeToChangelogFile="true"/>
+    <include file="xml/23.create-songs_in_albums-index.xml" relativeToChangelogFile="true"/>
+    <include file="xml/24.insert-songs_in_albums.xml" relativeToChangelogFile="true"/>
+
+    <include file="xml/25.create-saved_albums-table.xml" relativeToChangelogFile="true"/>
+    <include file="xml/26.create-saved_albums-index.xml" relativeToChangelogFile="true"/>
+    <include file="xml/27.insert-saved_albums.xml" relativeToChangelogFile="true"/>
+
+    <include file="xml/28.create-locations-table.xml" relativeToChangelogFile="true"/>
+    <include file="xml/29.create-locations-index.xml" relativeToChangelogFile="true"/>
+    <include file="xml/30.insert-locations.xml" relativeToChangelogFile="true"/>
+
+</databaseChangeLog> 

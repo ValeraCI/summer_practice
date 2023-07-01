@@ -1,0 +1,27 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="Valera Cidik" id="11.create-albums-index">
+        <createIndex indexName="index_albums_id" tableName="albums">
+            <column name="id"/>
+        </createIndex>
+
+        <createIndex indexName="index_albums_creator_id" tableName="albums">
+            <column name="creator_id"/>
+        </createIndex>
+
+        <createIndex indexName="index_albums_title" tableName="albums">
+            <column name="title"/>
+        </createIndex>
+
+        <rollback>
+            <dropIndex indexName="index_albums_id" tableName="albums"/>
+            <dropIndex indexName="index_albums_creator_id" tableName="albums"/>
+            <dropIndex indexName="index_albums_title" tableName="albums"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

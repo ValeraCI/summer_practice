@@ -1,0 +1,28 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="Valera Cidik" id="22.create-songs_in_albums-table.xml">
+        <createTable tableName="songs_in_albums">
+            <column name="song_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="songs_in_albums_song_id_FK" references="songs(id)"
+                             deleteCascade="true"/>
+            </column>
+            <column name="album_id" type="bigint">
+                <constraints nullable="false" foreignKeyName="songs_in_albums_album_id_FK" references="albums(id)"
+                             deleteCascade="true"/>
+            </column>
+        </createTable>
+
+        <addPrimaryKey
+                columnNames="song_id, album_id"
+                constraintName="songs_in_albums_PK"
+                tableName="songs_in_albums"/>
+
+        <rollback>
+            <dropTable tableName="songs_in_albums"/>
+        </rollback>
+    </changeSet>
+</databaseChangeLog>

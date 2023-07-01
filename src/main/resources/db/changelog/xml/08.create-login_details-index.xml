@@ -1,0 +1,21 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.6.xsd">
+
+    <changeSet author="Valera Cidik" id="08.create-login_details-index">
+        <createIndex indexName="index_login_details_account_id" tableName="login_details">
+            <column name="account_id"/>
+        </createIndex>
+        <createIndex indexName="index_login_details_email" tableName="login_details">
+            <column name="email"/>
+        </createIndex>
+
+        <rollback>
+            <dropIndex indexName="index_login_details_account_id" tableName="login_details"/>
+            <dropIndex indexName="index_login_details_email" tableName="login_details"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>
