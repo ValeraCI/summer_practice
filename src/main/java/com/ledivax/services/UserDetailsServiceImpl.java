@@ -18,8 +18,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final AccountDao accountDao;
 
-    @Loggable
     @Override
+    @Loggable
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountDao.findByEmail(username);
 

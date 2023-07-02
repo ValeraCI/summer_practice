@@ -127,10 +127,13 @@ public class AlbumDao extends AbstractDao<Album, Long> {
             Expression<Double> random = builder.function("RAND", Double.class);
 
             Root<Album> root = query.from(typeParameterClass);
-            query.select(root)
-                    .where(builder
-                            .not(root.get(Account_.ID).in(excludedIds)))
-                    .orderBy(builder.asc(random));
+            query = query.select(root);
+
+            if(excludedIds.size() != 0){
+                query = query.where(builder
+                        .not(root.get(Account_.ID).in(excludedIds)));
+            }
+            query = query.orderBy(builder.asc(random));
 
             TypedQuery<Album> typedQuery = entityManager.createQuery(query);
             typedQuery.setMaxResults(num);

@@ -23,6 +23,9 @@ public class LoggableAspect {
     public Object afterReturning(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         Object result;
 
+        logger.info("The method {} with parameters {} is called", proceedingJoinPoint.getSignature().getName(),
+                proceedingJoinPoint.getArgs());
+
         try {
             result = proceedingJoinPoint.proceed();
         } catch (Throwable e) {

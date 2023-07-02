@@ -1,5 +1,6 @@
 package com.ledivax.services.security;
 
+import com.ledivax.annotations.Loggable;
 import com.ledivax.dao.SongDao;
 import com.ledivax.models.AEntity;
 import com.ledivax.models.AccountDetails;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class SongSecurityService {
     private final SongDao songDao;
 
+    @Loggable
     public boolean hasAccess(Long songId, AccountDetails accountDetails) {
         Song song = songDao.findById(songId);
 

@@ -1,5 +1,6 @@
 package com.ledivax.services;
 
+import com.ledivax.annotations.Loggable;
 import com.ledivax.dao.AccountDao;
 import com.ledivax.dao.AlbumDao;
 import com.ledivax.dao.RoleDao;
@@ -35,6 +36,7 @@ public class AccountServiceImpl implements AccountService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Loggable
     public Long save(RegistrationRequest accountDataDto) {
         Account account = accountMapper.toEntity(accountDataDto);
 
@@ -46,6 +48,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Loggable
     public AccountMainDataDto findById(Long id) {
         Account account = accountDao.findById(id);
 
@@ -54,6 +57,7 @@ public class AccountServiceImpl implements AccountService {
 
 
     @Override
+    @Loggable
     public List<AccountMainDataDto> findAll(String pageNumber, String limit) {
         Integer pageNumberInteger = Convertor.stringToInteger(pageNumber);
         Integer limitInteger = Convertor.stringToInteger(limit);
@@ -69,6 +73,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Loggable
     public void updateData(Long id, UpdateAccountDataDto accountUpdateDto) {
         Account account = accountDao.findById(id);
 
@@ -79,6 +84,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Loggable
     public void updateRole(Long id, UpdateAccountRoleDto accountUpdateDto) {
         Account account = accountDao.findById(id);
 
@@ -99,11 +105,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Loggable
     public void deleteById(Long id) {
         accountDao.deleteById(id);
     }
 
     @Override
+    @Loggable
     public void addSavedAlbum(Long accountId, Long albumId) {
         Account account = accountDao.findWithSavedAlbumsById(accountId);
         Album album = albumDao.findById(albumId);
@@ -116,6 +124,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Loggable
     public void removeSavedAlbum(Long accountId, Long albumId) {
         Account account = accountDao.findWithSavedAlbumsById(accountId);
         Album album = albumDao.findById(albumId);

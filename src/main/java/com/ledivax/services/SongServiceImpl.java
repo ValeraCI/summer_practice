@@ -1,5 +1,6 @@
 package com.ledivax.services;
 
+import com.ledivax.annotations.Loggable;
 import com.ledivax.dao.AccountDao;
 import com.ledivax.dao.AlbumDao;
 import com.ledivax.dao.GenreDao;
@@ -32,6 +33,7 @@ public class SongServiceImpl implements SongService {
 
 
     @Override
+    @Loggable
     public Long save(SongCreateDto songCreateDto) {
         List<Account> authors = accountDao.findByIds(songCreateDto.getAuthorsId());
         Genre genre = genreDao.findById(songCreateDto.getGenreId());
@@ -41,11 +43,13 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
+    @Loggable
     public void deleteById(Long id) {
         songDao.deleteById(id);
     }
 
     @Override
+    @Loggable
     public List<SongInfoDto> findByAlbumId(Long albumId) {
         return songMapper.toSongInfoDtoList(
                 songDao.findByAlbumId(albumId)
@@ -53,11 +57,13 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
+    @Loggable
     public SongInfoDto findById(Long id) {
         return songMapper.toSongInfoDto(songDao.findById(id));
     }
 
     @Override
+    @Loggable
     public List<SongInfoDto> findByGenreTitle(String genreTitle, String pageNumber, String limit) {
         Integer pageNumberInteger = Convertor.stringToInteger(pageNumber);
         Integer limitInteger = Convertor.stringToInteger(limit);
@@ -76,6 +82,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
+    @Loggable
     public List<SongInfoDto> findByTitle(String title, String pageNumber, String limit) {
         Integer pageNumberInteger = Convertor.stringToInteger(pageNumber);
         Integer limitInteger = Convertor.stringToInteger(limit);
@@ -91,6 +98,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
+    @Loggable
     public List<SongInfoDto> findByParameter(String parameter, String findBy, String pageNumber, String limit) {
         List<SongInfoDto> resultList = null;
         SongFindParameter songFindParameter = Convertor.stringToSongFindParameter(findBy);

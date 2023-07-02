@@ -1,5 +1,6 @@
 package com.ledivax.services;
 
+import com.ledivax.annotations.Loggable;
 import com.ledivax.dto.AuthRequest;
 import com.ledivax.services.api.AuthenticationService;
 import com.ledivax.util.JwtUtil;
@@ -28,6 +29,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final UserDetailsService accountDetailsService;
 
     @Override
+    @Loggable
     public ResponseEntity login(AuthRequest request) {
         try {
             String username = request.getEmail();

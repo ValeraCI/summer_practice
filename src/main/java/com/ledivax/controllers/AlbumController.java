@@ -53,7 +53,6 @@ public class AlbumController {
     @DeleteMapping("/{id}")
     @PreAuthorize("@albumSecurityService.hasAccess(#id, principal)")
     public void remove(@PathVariable Long id) {
-
         albumService.deleteById(id);
     }
 

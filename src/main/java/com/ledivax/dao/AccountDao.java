@@ -97,7 +97,7 @@ public class AccountDao extends AbstractDao<Account, Long> {
 
             Root<Account> root = query.from(typeParameterClass);
             root.fetch(Account_.ROLE, JoinType.INNER);
-            root.fetch(Account_.SAVED_ALBUMS, JoinType.INNER);
+            root.fetch(Account_.SAVED_ALBUMS, JoinType.LEFT);
             query
                     .select(root)
                     .where(criteriaBuilder
@@ -116,7 +116,7 @@ public class AccountDao extends AbstractDao<Account, Long> {
             CriteriaQuery<Account> query = builder.createQuery(typeParameterClass);
 
             Root<Account> root = query.from(typeParameterClass);
-            root.fetch(Account_.SAVED_ALBUMS, JoinType.INNER);
+            root.fetch(Account_.SAVED_ALBUMS, JoinType.LEFT);
 
             query.select(root).where(
                     builder.and(

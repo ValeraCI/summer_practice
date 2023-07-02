@@ -1,5 +1,6 @@
 package com.ledivax.services;
 
+import com.ledivax.annotations.Loggable;
 import com.ledivax.dao.AccountDao;
 import com.ledivax.dao.AlbumDao;
 import com.ledivax.dao.SongDao;
@@ -55,6 +56,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
+    @Loggable
     public Long save(AlbumCreateDto albumDto) {
         Account account = accountDao.findById(albumDto.getCreatorId());
 
@@ -64,6 +66,8 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
 
+    @Override
+    @Loggable
     public void updateData(Long id, AlbumUpdateDto albumDto) {
         Album album = albumDao.findByIdWithCreator(id);
 
@@ -72,17 +76,20 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
+    @Loggable
     public AlbumInfoDto findById(Long id) {
         Album album = albumDao.findById(id);
         return albumMapper.toAlbumInfoDto(album);
     }
 
     @Override
+    @Loggable
     public void deleteById(Long id) {
         albumDao.deleteById(id);
     }
 
     @Override
+    @Loggable
     public void addSongIn(Long albumId, Long songId) {
         Album album = albumDao.findByIdWithCreator(albumId);
         Song song = songDao.findById(songId);
@@ -94,6 +101,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
+    @Loggable
     public void removeSongIn(Long albumId, Long songId) {
         Album album = albumDao.findByIdWithCreator(albumId);
         Song song = songDao.findById(songId);
@@ -106,6 +114,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
+    @Loggable
     public List<AlbumInfoDto> findSavedByAccountId(Long accountId) {
         return albumMapper.toAlbumInfoDtoList(
                 albumDao.findSavedFromByAccountId(accountId)
@@ -113,6 +122,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
+    @Loggable
     public List<AlbumInfoDto> findByCreatorId(Long accountId) {
         return albumMapper.toAlbumInfoDtoList(
                 albumDao.findCreatedFromAccountId(accountId)
@@ -120,6 +130,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
+    @Loggable
     public List<AlbumInfoDto> findAll(String pageNumber, String limit) {
         Integer pageNumberInteger = Convertor.stringToInteger(pageNumber);
         Integer limitInteger = Convertor.stringToInteger(limit);
@@ -136,6 +147,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
+    @Loggable
     public List<AlbumInfoDto> findByTitle(String title, String pageNumber, String limit) {
         Integer pageNumberInteger = Convertor.stringToInteger(pageNumber);
         Integer limitInteger = Convertor.stringToInteger(limit);
@@ -152,6 +164,7 @@ public class AlbumServiceImpl implements AlbumService {
     }
 
     @Override
+    @Loggable
     public List<AlbumInfoDto> findRecommendedFor(AccountDetails accountDetails, String limit) {
         Integer limitInteger = Convertor.stringToInteger(limit);
 
@@ -200,7 +213,7 @@ public class AlbumServiceImpl implements AlbumService {
             for (Account account : accounts) {
                 double[] accountSavedAlbumsArr = getAccountPrimitiveSavedAlbums(account);
 
-                if (isSimilar(savedAlbumsArr, accountSavedAlbumsArr)) {
+                if (accountSavedAlbumsArr.length > 0 && isSimilar(savedAlbumsArr, accountSavedAlbumsArr)) {
                     addRecommendedAlbums(savedAlbums, recommendation, accountSavedAlbumsArr, limit);
                 }
             }
@@ -228,7 +241,8 @@ public class AlbumServiceImpl implements AlbumService {
         return mannWhitneyUTest.mannWhitneyUTest(savedAlbumsArr, accountSavedAlbumsArr) >= percentageOfSimilarity;
     }
 
-    private void addRecommendedAlbums(Double[] savedAlbums, Set<Long> recommendation, double[] accountSavedAlbumsArr, Integer limit) {
+    private void addRecommendedAlbums(Double[] savedAlbums, Set<Long> recommendation, double[] accountSavedAlbumsArr,
+                                      Integer limit) {
         Arrays.stream(accountSavedAlbumsArr)
                 .filter(albumId -> !Arrays.asList(savedAlbums).contains(albumId))
                 .limit(limit - recommendation.size())

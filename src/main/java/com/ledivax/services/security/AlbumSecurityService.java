@@ -1,5 +1,6 @@
 package com.ledivax.services.security;
 
+import com.ledivax.annotations.Loggable;
 import com.ledivax.dao.AlbumDao;
 import com.ledivax.models.AccountDetails;
 import com.ledivax.models.Album;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 public class AlbumSecurityService {
     private final AlbumDao albumDao;
 
+    @Loggable
     public boolean hasAccess(Long albumId, AccountDetails accountDetails) {
         Album album = albumDao.findByIdWithCreator(albumId);
 
